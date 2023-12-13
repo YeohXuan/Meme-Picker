@@ -12,6 +12,11 @@ const memeModalInner = document.getElementById('meme-modal-inner')
 emotionRadios.addEventListener('change', highlightCheckedOption)    // Listen for changes in emotion radios
 getImgBtn.addEventListener('click', renderCatMeme)  // Listen for clicks on the "Get Image" button
 closeModalBtn.addEventListener('click', closeModal) // Listen for clicks on the close button in meme modal
+document.addEventListener('click', (e) => {
+    if (e.target.parentElement.id != 'meme-modal' && e.target.id != 'get-img-btn') {
+        closeModal()
+    }
+})
 
 // Function to highlight the checked emotion radio
 function highlightCheckedOption(e) {
@@ -20,18 +25,18 @@ function highlightCheckedOption(e) {
     for (let radio of radios) {
         radio.classList.remove('highlight') 
     }
-
+    
     document.getElementById(e.target.id).parentElement.classList.add('highlight')
 }
 
 // Function to render a cat meme in the modal
 function renderCatMeme() {
     const catObject = getSingleCatArray() // Get a random cat object
-
+    
     memeModalInner.innerHTML = `
-        <img src="images/${catObject.image}" alt="${catObject.alt}" class="cat-img">
+    <img src="images/${catObject.image}" alt="${catObject.alt}" class="cat-img">
     `
-
+    
     memeModal.style.display = 'flex' // Displaying the modal
 }
 
